@@ -9,6 +9,7 @@ class User (db.Model):
     email = db.Column(db.String(100), nullable = False, unique= True)
     password_hash = db.Column (db.String(150), nullable= False)
 
+    workouts = db.relationship('Workout', backref = 'user', cascade = 'all, delete-orphan')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
