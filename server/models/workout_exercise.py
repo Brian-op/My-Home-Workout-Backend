@@ -14,13 +14,11 @@ class WorkoutExercise(db.Model):
     workout = db.relationship('Workout', back_populates='workout_exercises')
     exercise = db.relationship('Exercise', back_populates='workout_exercises')
 
-    def __repr__(self):
-        return f'<WorkoutExercise {self.workout_id} - {self.exercise_id}>'
-
     @validates('sets', 'reps')
     def validate_positive(self, key, value):
         if value < 1:
             raise ValueError(f'{key} must be a positive number.')
         return value
+    
     def __repr__(self):
         return f"<WorkoutExercise workout={self.workout_id} exercise={self.exercise_id}>"
