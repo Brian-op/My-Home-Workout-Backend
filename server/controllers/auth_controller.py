@@ -12,10 +12,10 @@ def register():
     email = data.get("email")
     password = data.get("password")
     if not username or not email or not password:
-        return jsonify({"error": "All fields are required"}), 400
+        return jsonify({"error": "All fields are required"})
 
     if User.query.filter((User.username == username) | (User.email == email)).first():
-        return jsonify({"error": "Username or email already taken"}), 400
+        return jsonify({"error": "Username or email already taken"})
 
     new_user = User(username=username, email=email)
     new_user.set_password(password)
@@ -24,3 +24,18 @@ def register():
     db.session.commit()
 
     return jsonify({"message": "User registered successfully"}), 201
+
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    user = User.query.filter_by(email=email).first()
+
+    if user and user.check_password(password):
+        token = create_access_token(identity=user.id)
+        return jsonify(access_token=token)
+
+    return jsonify({"error": "Invalid email or password"}), 401
+
