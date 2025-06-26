@@ -7,11 +7,7 @@ class Exercise (db.Model):
     name = db.Column(db.String(50), nullable =True)
     description = db.Column(db.String)
 
-    workout_exercise = db.relationship('WorkoutExercise', backref='exercise', cascade= 'all, delete-orphan')
+    workout_exercise = db.relationship('WorkoutExercise', back_populates='exercise', cascade= 'all, delete')
 
-    def to_dict(self):
-        return{
-            "id": self.id,
-            "name": self.name,
-            "description": self.description
-        }
+    def __repr__(self):
+        return f"<Exercise {self.name}>"

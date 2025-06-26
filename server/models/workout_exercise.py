@@ -22,3 +22,5 @@ class WorkoutExercise(db.Model):
         if value < 1:
             raise ValueError(f'{key} must be a positive number.')
         return value
+    def __repr__(self):
+        return f"<WorkoutExercise workout={self.workout_id} exercise={self.exercise_id}>"

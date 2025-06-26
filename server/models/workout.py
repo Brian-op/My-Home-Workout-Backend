@@ -8,13 +8,8 @@ class Workout (db.Model):
     date= db.Column(db.Date, nullable=False)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
 
-    workout_exercises = db.relationship('WorkoutExercise', backref = 'workout', cascade ='all, delete-orphan')
+    workout_exercises = db.relationship('WorkoutExercise', back_populates = 'workout', cascade ='all, delete')
 
-    def to_dict(self):
-        return{
-            "id": self.id,
-            "title": self.title,
-            "date": self.date.isoformat(),
-            "user_id": self.user_id,
-            "exercises": [workex.to_dict() for workex in self.workout_exercises]
-        }
+    
+    def __repr__(self):
+        return f'<Workout {self.name}>'

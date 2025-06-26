@@ -9,7 +9,7 @@ class User (db.Model):
     email = db.Column(db.String(100), nullable = False, unique= True)
     password_hash = db.Column (db.String(150), nullable= False)
 
-    workouts = db.relationship('Workout', backref = 'user', cascade = 'all, delete-orphan')
+    workouts = db.relationship('Workout', backref = 'user', cascade = 'all, delete')
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -17,9 +17,3 @@ class User (db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash,password)
     
-    def to_dict(self):
-        return{
-            "id":self.id,
-            "username":self.username,
-            "email":self.email
-        }
