@@ -8,7 +8,7 @@ class Workout (db.Model):
     date= db.Column(db.Date, nullable=False)
     user_id=db.Column(db.Integer, db.ForeignKey('user.id'), nullable= False)
 
-    workout_exercises = db.relationship ('WorkoutExercise'), backref = 'workout', cascade =('all, delete-orphan')
+    workout_exercises = db.relationship('WorkoutExercise', backref = 'workout', cascade ='all, delete-orphan')
 
     def to_dict(self):
         return{

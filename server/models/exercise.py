@@ -1,13 +1,13 @@
 from server.models import db
 
-class Exeercise (db.Model):
+class Exercise (db.Model):
     __tablename__= 'exercises'
 
     id= db.Column(db.Integer, primary_key= True)
     name = db.Column(db.String(50), nullable =True)
     description = db.Column(db.String)
 
-    workout_exercise = db.relationship('workoutExercise', backref='exercise', cascade= 'all, delete-orphan')
+    workout_exercise = db.relationship('WorkoutExercise', backref='exercise', cascade= 'all, delete-orphan')
 
     def to_dict(self):
         return{
