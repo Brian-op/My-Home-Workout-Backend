@@ -12,6 +12,7 @@ psycopg2-binary = "*"
 pipenv = "*"
 shell = "*"
 flask-cors = "*"
+gunicorn = "*"
 
 [dev-packages]
 
